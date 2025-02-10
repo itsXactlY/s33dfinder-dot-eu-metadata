@@ -160,4 +160,5 @@ class ComprehensiveWaybackDownloader:
             list(executor.map(self.download_full_page, data))
 
 if __name__ == '__main__':
-    downloader = ComprehensiveWaybackDownloader('metada
+    downloader = ComprehensiveWaybackDownloader('metadata.json')
+    downloader.download_all()
