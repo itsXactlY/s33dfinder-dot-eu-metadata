@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlparse, urljoin
 
 class ComprehensiveWaybackDownloader:
-    def __init__(self, json_file, tor_port=9050, control_port=9051, max_workers=5):
+    def __init__(self, json_file, tor_port=9050, control_port=9051, max_workers=2):
         self.json_file = json_file
         self.tor_port = tor_port
         self.control_port = control_port
@@ -25,7 +25,7 @@ class ComprehensiveWaybackDownloader:
             with Controller.from_port(port=self.control_port) as controller:
                 controller.authenticate()
                 controller.signal(Signal.NEWNYM)
-                time.sleep(10)  # ip rotation interval
+                time.sleep(5)  # ip rotation interval
         except Exception as e:
             print(f"Tor IP renewal error: {e}")
 
@@ -160,5 +160,4 @@ class ComprehensiveWaybackDownloader:
             list(executor.map(self.download_full_page, data))
 
 if __name__ == '__main__':
-    downloader = ComprehensiveWaybackDownloader('metadata.json')
-    downloader.download_all()
+    downloader = ComprehensiveWaybackDownloader('metada
